@@ -28,10 +28,10 @@ X = df[['carat', 'cut', 'color', 'clarity', 'depth', 'table', 'x', 'y', 'z']]
 y = df[['price']]
 
 # Разделение данных на тренировочный и тестовый наборы
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 25, random_state = 101)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 25, random_state = 174)
 
 # Тренировка
-regr = RandomForestRegressor(n_estimators = 10, max_depth = 10, random_state = 101)
+regr = RandomForestRegressor(n_estimators = 10, max_depth = 10, random_state = 174)
 regr.fit(X_train, y_train.values.ravel())
 
 # Прогнозирование
@@ -42,3 +42,15 @@ result['price'] = y_test
 result['prediction'] = predictons.tolist()
 
 print(result.to_string())
+
+# Опредиление оси X
+x_axis = X_test.carat
+
+# Построение графиков
+plt.scatter(x_axis, y_test, c = 'b', alpha = 0.5, marker = '.', label = 'Real')
+plt.scatter(x_axis, predictons, c = 'r', alpha = 0.5, marker = '.', label = 'Predikted')
+plt.xlabel('Carat')
+plt.ylabel('Prise')
+plt.grid(color = '#D3D3D3', linestyle = 'solid')
+plt.legend(loc = 'lower right')
+plt.show()
